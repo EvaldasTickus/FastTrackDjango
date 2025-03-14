@@ -1,0 +1,128 @@
+body {
+    text-align: center;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
+                      url("../images/cities-cvr.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.button-container {
+    box-shadow: 8px 14px 24px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    width: 300px;
+    border-radius: 50%;
+    height: 100px;
+}
+
+.add-button {
+    border: 2px solid white;
+    padding: 20px 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 24px;
+    color: white;
+    background: linear-gradient(to right, #FF7E5F, #FEB47B);
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    transform: scale(1.05);
+}
+
+.cities {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    border-bottom: 2px solid white;
+    transition: color 0.3s;
+}
+
+.cities:hover {
+    color: #4CA1AF;
+    border-bottom: 2px solid #4CA1AF;
+}
+
+.city-box {
+    width: 240px;
+    height: 80px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #FF7E5F, #FEB47B);
+    border: 2px solid white;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+.city-box:hover {
+    transform: scale(1.05);
+}
+
+.city-container {
+    box-shadow: 8px 14px 24px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: grid;
+    gap: 40px;
+    place-items: center;
+    margin: 40px;
+    padding: 40px;
+}
+
+.delete-button {
+    position: absolute;
+    right: 17px;
+    top: 12px;
+    cursor: pointer;
+    color: white;
+    font-size: 22px;
+    transition: color 0.3s;
+}
+
+.delete-button:hover {
+    color: red;
+}
+
+@media screen and (min-width: 768px) {
+
+    .city-container {
+    padding: 50px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: row;
+    gap: 50px;
+    }
+
+    .city-box {
+    width: 250px;
+    height: 100px;
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+
+    .city-container {
+    margin: 100px 30px;
+    padding: 100px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: row;
+    gap: 50px;
+    }
+
+    .city-box {
+    main-width: 200px;
+    max-width: 350px;
+    height: 100px;
+    }
+
+}

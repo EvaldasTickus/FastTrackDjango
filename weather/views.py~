@@ -1,0 +1,102 @@
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import City, CityWeathers
+from django.http import Http404
+from weather.helper_functions.weathers import get_temperature
+from django.urls import reverse
+from django.utils import timezone
+
+
+
+def index(request):
+    cities = City.objects.all()
+    context = {"cities": cities}
+    return render(request=request, template_name="weathers/cities.html", context=context)
+
+def detail(request, pk):
+    try:
+        city = City.objects.get(pk=pk)
+        temperature = get_temperature(city_id=id)
+    except City.DoesNotExist:
+        city = None
+        temperature = None
+
+    context = {
+        "city": city,
+        "temperature": temperature
+    }
+
+    city_weathers = CityWeathers.objects.create(city=city, temperature=temperature)
+    city_weathers.save()
+    return render(request=request, template_name="weathers/city.html", context=context)
+
+
+def weathers(request):
+    # Get the city ID from the query parameters
+    city_id = request.GET.get('city_id')
+
+    # Check if city_id is valid (it must be an integer and not None)
+    if city_id is None:
+        raise Http404("City ID is missing.")
+
+    try:
+        # Try to fetch the city by id
+        city = City.objects.get(city_id=city.id)
+
+        # Fetch the temperature (assuming you have this function)
+        temperature = get_temperature(city_id)  # Replace with your actual method to get the temperature
+
+        # Update or create the weather record for the city
+        city_weather, created = CityWeathers.objects.update_or_create(
+            city=city,
+            defaults={'temperature': temperature, 'time_stamp': timezone.now()}
+        )
+
+        # Fetch all the weather records for display (or just for the current city)
+        city_weathers = CityWeathers.objects.all()  # Adjust if you need specific records
+
+        context = {
+            "city_weathers": city_weathers
+        }
+
+    except City.DoesNotExist:
+        # If the city does not exist, raise a 404 error or handle it as needed
+        raise Http404("City not found in the database.")
+
+    return render(request, "weathers/weathers.html", context)
+
+def add_city(request):
+    if request.method == "POST":
+        city = City.objects.create(
+            name=request.POST["city"],
+            country = request.POST["country"],
+            coordination_x=request.POST["coordination_x"],
+            coordination_y = request.POST["coordination_y"]
+        )
+        city.save()
+        return HttpResponseRedirect(reverse("weathers:cities"))
+    context = {}
+    return render(request=request, template_name="weathers/city_add.html", context=context)
+
+def delete_city(request, city_id):
+    city = get_object_or_404(City, id=city_id)
+    city.delete()
+    return HttpResponseRedirect(reverse("weathers:cities"))
+
+# def add_city_1(request):
+#     if request.method == "POST":
+#         form = NameForm(request.POST)
+#         if form.is_valid():
+#             city = City.objects.create(
+#                 name=form.cleaned_data["city"],
+#                 country = form.cleaned_data["country"],
+#                 coordination_x = form.cleaned_data["coordination_x"],
+#                 coordination_y = form.cleaned_data["coordination_y"]
+#             )
+#             city.save()
+#             return HttpResponseRedirect(reverse("weathers:cities"))
+#
+#     else:
+#         form = NameForm()
+#     context = {"form": form}
+#     return render(request=request, template_name="weathers/city_add_1.html", context=context)

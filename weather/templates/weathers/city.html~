@@ -1,0 +1,12 @@
+ {% extends 'main.html' %}
+  {% load static %}
+
+ {% block content %}
+    <div class="wrapper">
+        <div class="weather-container">
+            <p>City Name: <strong>{{ city.name }}</strong></p>
+            <p>Country: <strong>{{ city.country }}</strong></p>
+            <p>Temperature: <strong>{{ temperature }}°C</strong></p>
+        </div>
+    </div>
+ {% endblock %}

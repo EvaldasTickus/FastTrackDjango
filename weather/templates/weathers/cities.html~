@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/cities.css' %}">
+{% endblock %}
+
+{% endblock %}
+
+{% block content %}
+        <div class="city-container">
+        {% for city in cities %}
+        <div class="city-box">
+            <a class="delete-button" href="{% url 'weathers:delete_city' city.id %}" onclick="return confirm('Are you sure you want to delete this city?')">X</a>
+            <a class="cities" href="{% url 'weathers:city' city.id %}">{{ city.name }}</a>
+        </div>
+        {% endfor %}
+        </div>
+        <div class="button-container">
+            <button class="add-button"><a class="nav-link" href=" {% url 'weathers:city_add' %} ">Add City</a></button>
+        </div>
+{% endblock %}

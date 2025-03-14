@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <h1>Know the Weather. Plan with Confidence.</h1>
+  <p class="subtext">Real-time forecasts, alerts, and insights at your fingertips.</p>
+</section>
+
+<section class="middle-section">
+    <div class="large-info">
+        <p>
+          <strong>Monday</strong>A bright and sunny start to the week with clear skies, light breezes, and excellent visibility for outdoor activities. Enjoy the warmth.
+        </p>
+
+        <p>
+          <strong>Tuesday</strong>Clouds gradually increase, bringing a chance of light afternoon showers. Winds strengthen slightly, making the air feel crisp and refreshing.
+        </p>
+
+        <p>
+          <strong>Wednesday</strong>A cold front moves in, bringing periods of rain and possible thunderstorms. Expect gusty winds and a noticeably cooler atmosphere.
+        </p>
+
+        <p>
+          <strong>Thursday</strong> The rain clears, leaving behind partly cloudy skies. A dry, breezy day with occasional sunshine, perfect for a peaceful afternoon outdoors.
+        </p>
+
+        <p>
+          <strong>Friday</strong>Sunshine returns with scattered clouds. A calm and pleasant day, setting the stage for a beautiful weekend ahead with mild conditions.
+        </p>
+
+        <p>
+          <strong>Saturday & Sunday</strong> Mostly sunny with a few passing clouds. A tranquil weekend, ideal for outdoor adventures, family gatherings, and relaxing walks.
+        </p>
+    </div>
+     <div class="middle-info">
+        {% for data in city_data %}
+            <div class="weather-container bg-{{ data.city.name|lower }}">
+                <h3>{{ data.city.name }}</h3>
+                <p>Country: {{ data.city.country }}</p>
+                <p>Tempture: {% if data.temperature %}{{ data.temperature }}°C{% else %}N/A{% endif %}</p>
+                <p>Latitude: {{ data.city.coordination_x }}</p>
+                <p>Longitude: {{ data.city.coordination_y }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="right-side-info">
+        <h5>Weekly weather prognosis</h5>
+        <p class="weekly-forecast">This week in Lithuania, a expect transition from windy and cloudy conditions to milder temperatures with increasing sunshine. On Wednesday, strong winds and midday showers are anticipated, with highs around 10°C (50°F) and lows near 4°C (39°F). A wind warning is in effect until Thursday evening, urging caution outdoors. By Thursday and Friday, conditions improve with partly sunny skies and temperatures ranging from 8°C (46°F) to 9°C (48°F). The weekend sees further warming, with highs reaching 12°C (54°F) on Sunday, accompanied by increasing cloud cover. Overall, the week offers a mix of windy, cloudy, and progressively sunnier days, with temperatures gradually rising.</p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+ {% block content %}
+<div class="form-container">
+    <form class="add-form" method="post">
+        {% csrf_token %}
+            <label for="city">City:</label>
+            <input class="city" id="city" type="text" name="city">
+
+            <label for="country">Country:</label>
+            <input class="country" id="country" type="text" name="country">
+
+            <label for="coordination_x">Coordination_X:</label>
+            <input class="coordination_x" id="coordination_x" type="number" step="any" name="coordination_x">
+
+            <label for="coordination_y">Coordination_Y:</label>
+            <input class="coordination_y" id="coordination_y" type="number" step="any" name="coordination_y">
+
+        <input class="add-button" type="submit" value="Add">
+    </form>
+</div>
+ {% endblock %}

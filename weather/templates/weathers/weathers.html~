@@ -1,0 +1,29 @@
+ {% extends 'main.html' %}
+ {% load static %}
+ {% block head %}
+
+{% endblock %}
+
+ {% block content %}
+<div class="wrapper">
+    <table class="weather-table table-transparent">
+        <thead>
+            <tr>
+                <th>City Name</th>
+                <th>Country</th>
+                <th>Temperature (°C)</th>
+                <th>Last time updated:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for weather in city_weathers %}
+            <tr>
+                <td>{{ weather.city.name }}</td>
+                <td>{{ weather.city.country }}</td>
+                <td>{{ weather.temperature }}</td>
+                <td>{{ weather.time_stamp }}</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ {% endblock %}
